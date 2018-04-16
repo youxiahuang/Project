@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\faceDetect">
+      <UniqueIdentifier>{97f39aa5-3279-4565-bdfb-2b4466c35ec0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\faceDetect\src">
+      <UniqueIdentifier>{92f3a3db-72ac-4e4b-a6dc-bb5f2157be76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\faceDetect\include">
+      <UniqueIdentifier>{d0671207-247e-421c-b987-1a9ba2659a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc">
+      <UniqueIdentifier>{f65430d8-3a3a-4c77-b6c4-0220e6372950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\calib3d">
+      <UniqueIdentifier>{86e810a8-40ba-444a-b7cd-4f0d1c56eb05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core">
+      <UniqueIdentifier>{3f923cc0-e017-4264-9e86-84c54de16fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\highgui">
+      <UniqueIdentifier>{442ea981-e009-4031-9ccc-e05c3dcd3156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\videoio">
+      <UniqueIdentifier>{750daf27-c6c8-484f-b973-d4a5c7b048ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\include">
+      <UniqueIdentifier>{17989cd4-8969-4c98-b73f-33cbf24d4821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\src">
+      <UniqueIdentifier>{85547f92-20e7-4673-ae67-e35737ce8aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\include\opencv2">
+      <UniqueIdentifier>{055bb269-2973-41cc-89ac-db3ae6c231d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\include\opencv2\core">
+      <UniqueIdentifier>{d0c59e8c-2370-4683-b1f0-b6e52d3543b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\include\opencv2\core\hal">
+      <UniqueIdentifier>{20a128a4-01b2-4639-b42f-ef1e73943335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\include\opencv2\core\private">
+      <UniqueIdentifier>{3b170dfd-f6a8-411b-96e4-ca637bbfee21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\core\include\opencv2\core\utils">
+      <UniqueIdentifier>{176c7209-9925-4d56-8639-f39f3e66dff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\highgui\include">
+      <UniqueIdentifier>{c06c0793-40cc-422f-8cac-16f21981d0fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\highgui\src">
+      <UniqueIdentifier>{6c8d0778-abc0-43bd-a5f1-38407678b4c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\highgui\include\opencv2">
+      <UniqueIdentifier>{42d6864e-23f5-4880-b967-30693d7bf37f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\highgui\include\opencv2\highgui">
+      <UniqueIdentifier>{e515445b-9836-4b37-bfd1-06a1074dc2d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\videoio\include">
+      <UniqueIdentifier>{36d676be-f71e-4944-a093-ba09976417e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\videoio\src">
+      <UniqueIdentifier>{65530799-a747-40e3-a01f-cd58303d9c91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\videoio\include\opencv2">
+      <UniqueIdentifier>{8e101154-b2c2-469f-b404-d5af20e44bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\videoio\include\opencv2\videoio">
+      <UniqueIdentifier>{f82bf03c-f293-4a8a-a198-c839d83435eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\opencvSrc\libjpeg">
+      <UniqueIdentifier>{ebce90d7-a33a-42f0-bf31-acbd9093da2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="faceDetect\include\bncascadedetect.hpp">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\bndetection_based_tracker.hpp">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\bnhaar.hpp">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\bnobjdetect.hpp">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\bnobjdetect_c.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\camPose.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\faceDetect.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\facetracker.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\ffttools.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\fhog.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\recttools.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="faceDetect\include\RotationHelpers.h">
+      <Filter>源文件\faceDetect\include</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\ap3p.h">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\calib3d.hpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\calib3d_c.h">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\calib3dprecomp.hpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\distortion_model.hpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\epnp.h">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\p3p.h">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\polynom_solver.h">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\rho.h">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\calib3d\undistort.hpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\cv_cpu_config.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\cvconfig.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\base.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\core.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\core_c.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cv_cpu_dispatch.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cv_cpu_helper.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cvdef.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cvstd.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cvstd.inl.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\fast_math.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\mat.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\mat.inl.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\matx.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\neon_utils.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\opengl.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\operations.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\persistence.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\private.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\ptr.inl.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\saturate.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\traits.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\types.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\types_c.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utility.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\version.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\hal\hal.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\hal\interface.h">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core\hal</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\private\cv_cpu_include_simd_declarations.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core\private</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utils\configuration.private.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utils\logger.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utils\trace.hpp">
+      <Filter>源文件\opencvSrc\core\include\opencv2\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\arithm_core.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\arithm_simd.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\convert.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\gl_core_3_1.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\hal_replacement.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\mathfuncs_core.simd.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\precomp.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\core\src\stat.simd.hpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\highgui\include\opencv2\highgui.hpp">
+      <Filter>源文件\opencvSrc\highgui\include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\highgui\include\opencv2\highgui\highgui.hpp">
+      <Filter>源文件\opencvSrc\highgui\include\opencv2\highgui</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\highgui\include\opencv2\highgui\highgui_c.h">
+      <Filter>源文件\opencvSrc\highgui\include\opencv2\highgui</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\highgui\src\precomp.hpp">
+      <Filter>源文件\opencvSrc\highgui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio.hpp">
+      <Filter>源文件\opencvSrc\videoio\include\opencv2</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio\cap_ios.h">
+      <Filter>源文件\opencvSrc\videoio\include\opencv2\videoio</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio\videoio.hpp">
+      <Filter>源文件\opencvSrc\videoio\include\opencv2\videoio</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio\videoio_c.h">
+      <Filter>源文件\opencvSrc\videoio\include\opencv2\videoio</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\videoio\src\cap_dshow.hpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\videoio\src\precomp.hpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\bitstrm.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\BNImgcodecs.h">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\BNImgProc.h">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\exif.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\grfmt_base.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\grfmt_bmp.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\grfmt_jpeg.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\grfmt_png.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\imgcodecs_c.h">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\utils.hpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jconfig.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jdct.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jerror.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jinclude.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jmemsys.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jmorecfg.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jpegint.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jpeglib.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="opencvSrc\libjpeg\jversion.h">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="faceDetect\src\bncascadedetect.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\bndetection_based_tracker.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\bnhaar.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\camPose.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\faceDetect.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\facetracker.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\ffttools.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="faceDetect\src\fhog.cpp">
+      <Filter>源文件\faceDetect\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\ap3p.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\calibration.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\compat_ptsetreg.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\epnp.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\fundam.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\levmarq.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\p3p.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\polynom_solver.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\ptsetreg.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\rho.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\solvepnp.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\undistort.avx2.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\calib3d\undistort.cpp">
+      <Filter>源文件\opencvSrc\calib3d</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\algorithm.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\alloc.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\arithm.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\array.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\convert.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\copy.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\datastructs.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\dxt.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\gl_core_3_1.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\lapack.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\mathfuncs.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\mathfuncs_core.dispatch.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\matmul.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\matop.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\matrix.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\matrix_decomp.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\merge.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\opengl.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\out.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\parallel.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\parallel_pthreads.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\persistence.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\rand.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\split.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\stat.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\stat.dispatch.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\stl.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\system.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\tables.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\trace.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\types.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\core\src\umatrix.cpp">
+      <Filter>源文件\opencvSrc\core\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\highgui\src\window.cpp">
+      <Filter>源文件\opencvSrc\highgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\highgui\src\window_w32.cpp">
+      <Filter>源文件\opencvSrc\highgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\videoio\src\cap.cpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\videoio\src\cap_dshow.cpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\videoio\src\cap_images.cpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\videoio\src\cap_mjpeg_decoder.cpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\videoio\src\cap_mjpeg_encoder.cpp">
+      <Filter>源文件\opencvSrc\videoio\src</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\bitstrm.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\exif.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\grfmt_base.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\grfmt_bmp.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\grfmt_jpeg.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\grfmt_png.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\LoadAndSave.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\templmatch.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\utils.cpp">
+      <Filter>源文件\opencvSrc</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>资源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jaricom.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcapimin.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcapistd.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcarith.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jccoefct.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jccolor.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcdctmgr.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jchuff.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcinit.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcmainct.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcmarker.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcmaster.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcomapi.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcparam.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcprepct.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jcsample.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jctrans.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdapimin.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdapistd.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdarith.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdatadst.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdatasrc.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdcoefct.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdcolor.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jddctmgr.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdhuff.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdinput.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdmainct.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdmarker.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdmaster.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdmerge.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdpostct.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdsample.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jdtrans.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jerror.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jfdctflt.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jfdctfst.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jfdctint.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jidctflt.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jidctfst.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jidctint.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jmemansi.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jmemmgr.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jquant1.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jquant2.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="opencvSrc\libjpeg\jutils.c">
+      <Filter>源文件\opencvSrc\libjpeg</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

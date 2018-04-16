@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7A8DE70E-CDE8-408C-B8C9-E10E5B35418D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>OpencvDemo</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>.\opencvSrc\libjpeg;.\opencvSrc\core\src;.\opencvSrc\core\include\opencv2\core\utils;.\opencvSrc\core\include\opencv2\core\private;.\opencvSrc\core\include\opencv2\core\hal;.\opencvSrc\core\include\opencv2\core;.\opencvSrc\core\include\opencv2;.\opencvSrc\core\include;.\opencvSrc\calib3d;.\opencvSrc;.\faceDetect\include;.\opencvSrc\videoio\include\;.\opencvSrc\highgui\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;__OPENCV_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="faceDetect\include\bncascadedetect.hpp" />
+    <ClInclude Include="faceDetect\include\bndetection_based_tracker.hpp" />
+    <ClInclude Include="faceDetect\include\bnhaar.hpp" />
+    <ClInclude Include="faceDetect\include\bnobjdetect.hpp" />
+    <ClInclude Include="faceDetect\include\bnobjdetect_c.h" />
+    <ClInclude Include="faceDetect\include\camPose.h" />
+    <ClInclude Include="faceDetect\include\faceDetect.h" />
+    <ClInclude Include="faceDetect\include\facetracker.h" />
+    <ClInclude Include="faceDetect\include\ffttools.h" />
+    <ClInclude Include="faceDetect\include\fhog.h" />
+    <ClInclude Include="faceDetect\include\recttools.h" />
+    <ClInclude Include="faceDetect\include\RotationHelpers.h" />
+    <ClInclude Include="opencvSrc\bitstrm.hpp" />
+    <ClInclude Include="opencvSrc\BNImgcodecs.h" />
+    <ClInclude Include="opencvSrc\BNImgProc.h" />
+    <ClInclude Include="opencvSrc\calib3d\ap3p.h" />
+    <ClInclude Include="opencvSrc\calib3d\calib3d.hpp" />
+    <ClInclude Include="opencvSrc\calib3d\calib3dprecomp.hpp" />
+    <ClInclude Include="opencvSrc\calib3d\calib3d_c.h" />
+    <ClInclude Include="opencvSrc\calib3d\distortion_model.hpp" />
+    <ClInclude Include="opencvSrc\calib3d\epnp.h" />
+    <ClInclude Include="opencvSrc\calib3d\p3p.h" />
+    <ClInclude Include="opencvSrc\calib3d\polynom_solver.h" />
+    <ClInclude Include="opencvSrc\calib3d\rho.h" />
+    <ClInclude Include="opencvSrc\calib3d\undistort.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\base.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\core.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\core_c.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cvdef.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cvstd.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cvstd.inl.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cv_cpu_dispatch.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\cv_cpu_helper.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\fast_math.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\hal\hal.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\hal\interface.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\mat.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\mat.inl.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\matx.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\neon_utils.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\opengl.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\operations.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\persistence.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\private.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\private\cv_cpu_include_simd_declarations.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\ptr.inl.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\saturate.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\traits.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\types.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\types_c.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utility.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utils\configuration.private.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utils\logger.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\utils\trace.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\core\version.hpp" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\cvconfig.h" />
+    <ClInclude Include="opencvSrc\core\include\opencv2\cv_cpu_config.h" />
+    <ClInclude Include="opencvSrc\core\src\arithm_core.hpp" />
+    <ClInclude Include="opencvSrc\core\src\arithm_simd.hpp" />
+    <ClInclude Include="opencvSrc\core\src\convert.hpp" />
+    <ClInclude Include="opencvSrc\core\src\gl_core_3_1.hpp" />
+    <ClInclude Include="opencvSrc\core\src\hal_replacement.hpp" />
+    <ClInclude Include="opencvSrc\core\src\mathfuncs_core.simd.hpp" />
+    <ClInclude Include="opencvSrc\core\src\precomp.hpp" />
+    <ClInclude Include="opencvSrc\core\src\stat.simd.hpp" />
+    <ClInclude Include="opencvSrc\exif.hpp" />
+    <ClInclude Include="opencvSrc\grfmt_base.hpp" />
+    <ClInclude Include="opencvSrc\grfmt_bmp.hpp" />
+    <ClInclude Include="opencvSrc\grfmt_jpeg.hpp" />
+    <ClInclude Include="opencvSrc\grfmt_png.hpp" />
+    <ClInclude Include="opencvSrc\highgui\include\opencv2\highgui.hpp" />
+    <ClInclude Include="opencvSrc\highgui\include\opencv2\highgui\highgui.hpp" />
+    <ClInclude Include="opencvSrc\highgui\include\opencv2\highgui\highgui_c.h" />
+    <ClInclude Include="opencvSrc\highgui\src\precomp.hpp" />
+    <ClInclude Include="opencvSrc\imgcodecs_c.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jconfig.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jdct.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jerror.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jinclude.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jmemsys.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jmorecfg.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jpegint.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jpeglib.h" />
+    <ClInclude Include="opencvSrc\libjpeg\jversion.h" />
+    <ClInclude Include="opencvSrc\utils.hpp" />
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio.hpp" />
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio\cap_ios.h" />
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio\videoio.hpp" />
+    <ClInclude Include="opencvSrc\videoio\include\opencv2\videoio\videoio_c.h" />
+    <ClInclude Include="opencvSrc\videoio\src\cap_dshow.hpp" />
+    <ClInclude Include="opencvSrc\videoio\src\precomp.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="faceDetect\src\bncascadedetect.cpp" />
+    <ClCompile Include="faceDetect\src\bndetection_based_tracker.cpp" />
+    <ClCompile Include="faceDetect\src\bnhaar.cpp" />
+    <ClCompile Include="faceDetect\src\camPose.cpp" />
+    <ClCompile Include="faceDetect\src\faceDetect.cpp" />
+    <ClCompile Include="faceDetect\src\facetracker.cpp" />
+    <ClCompile Include="faceDetect\src\ffttools.cpp" />
+    <ClCompile Include="faceDetect\src\fhog.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="opencvSrc\bitstrm.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\ap3p.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\calibration.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\compat_ptsetreg.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\epnp.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\fundam.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\levmarq.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\p3p.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\polynom_solver.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\ptsetreg.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\rho.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\solvepnp.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\undistort.avx2.cpp" />
+    <ClCompile Include="opencvSrc\calib3d\undistort.cpp" />
+    <ClCompile Include="opencvSrc\core\src\algorithm.cpp" />
+    <ClCompile Include="opencvSrc\core\src\alloc.cpp" />
+    <ClCompile Include="opencvSrc\core\src\arithm.cpp" />
+    <ClCompile Include="opencvSrc\core\src\array.cpp" />
+    <ClCompile Include="opencvSrc\core\src\convert.cpp" />
+    <ClCompile Include="opencvSrc\core\src\copy.cpp" />
+    <ClCompile Include="opencvSrc\core\src\datastructs.cpp" />
+    <ClCompile Include="opencvSrc\core\src\dxt.cpp" />
+    <ClCompile Include="opencvSrc\core\src\gl_core_3_1.cpp" />
+    <ClCompile Include="opencvSrc\core\src\lapack.cpp" />
+    <ClCompile Include="opencvSrc\core\src\mathfuncs.cpp" />
+    <ClCompile Include="opencvSrc\core\src\mathfuncs_core.dispatch.cpp" />
+    <ClCompile Include="opencvSrc\core\src\matmul.cpp" />
+    <ClCompile Include="opencvSrc\core\src\matop.cpp" />
+    <ClCompile Include="opencvSrc\core\src\matrix.cpp" />
+    <ClCompile Include="opencvSrc\core\src\matrix_decomp.cpp" />
+    <ClCompile Include="opencvSrc\core\src\merge.cpp" />
+    <ClCompile Include="opencvSrc\core\src\opengl.cpp" />
+    <ClCompile Include="opencvSrc\core\src\out.cpp" />
+    <ClCompile Include="opencvSrc\core\src\parallel.cpp" />
+    <ClCompile Include="opencvSrc\core\src\parallel_pthreads.cpp" />
+    <ClCompile Include="opencvSrc\core\src\persistence.cpp" />
+    <ClCompile Include="opencvSrc\core\src\rand.cpp" />
+    <ClCompile Include="opencvSrc\core\src\split.cpp" />
+    <ClCompile Include="opencvSrc\core\src\stat.cpp" />
+    <ClCompile Include="opencvSrc\core\src\stat.dispatch.cpp" />
+    <ClCompile Include="opencvSrc\core\src\stl.cpp" />
+    <ClCompile Include="opencvSrc\core\src\system.cpp" />
+    <ClCompile Include="opencvSrc\core\src\tables.cpp" />
+    <ClCompile Include="opencvSrc\core\src\trace.cpp" />
+    <ClCompile Include="opencvSrc\core\src\types.cpp" />
+    <ClCompile Include="opencvSrc\core\src\umatrix.cpp" />
+    <ClCompile Include="opencvSrc\exif.cpp" />
+    <ClCompile Include="opencvSrc\grfmt_base.cpp" />
+    <ClCompile Include="opencvSrc\grfmt_bmp.cpp" />
+    <ClCompile Include="opencvSrc\grfmt_jpeg.cpp" />
+    <ClCompile Include="opencvSrc\grfmt_png.cpp" />
+    <ClCompile Include="opencvSrc\highgui\src\window.cpp" />
+    <ClCompile Include="opencvSrc\highgui\src\window_w32.cpp" />
+    <ClCompile Include="opencvSrc\libjpeg\jaricom.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcapimin.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcapistd.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcarith.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jccoefct.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jccolor.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcdctmgr.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jchuff.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcinit.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcmainct.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcmarker.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcmaster.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcomapi.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcparam.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcprepct.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jcsample.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jctrans.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdapimin.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdapistd.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdarith.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdatadst.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdatasrc.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdcoefct.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdcolor.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jddctmgr.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdhuff.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdinput.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdmainct.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdmarker.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdmaster.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdmerge.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdpostct.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdsample.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jdtrans.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jerror.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jfdctflt.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jfdctfst.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jfdctint.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jidctflt.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jidctfst.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jidctint.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jmemansi.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jmemmgr.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jquant1.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jquant2.c" />
+    <ClCompile Include="opencvSrc\libjpeg\jutils.c" />
+    <ClCompile Include="opencvSrc\LoadAndSave.cpp" />
+    <ClCompile Include="opencvSrc\templmatch.cpp" />
+    <ClCompile Include="opencvSrc\utils.cpp" />
+    <ClCompile Include="opencvSrc\videoio\src\cap.cpp" />
+    <ClCompile Include="opencvSrc\videoio\src\cap_dshow.cpp" />
+    <ClCompile Include="opencvSrc\videoio\src\cap_images.cpp" />
+    <ClCompile Include="opencvSrc\videoio\src\cap_mjpeg_decoder.cpp" />
+    <ClCompile Include="opencvSrc\videoio\src\cap_mjpeg_encoder.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
