@@ -4,69 +4,65 @@
 #include <string>
 #include <vector>
 #include"faceDetect.h"
-  
 #include "BNImgcodecs.h"
 
 using namespace std;
 using namespace cv;
+
 namespace bn
 {
-class CascadeDetectorAdapter : public faceDetect::DetectionBasedTracker::IDetector
-{
-public:
-	CascadeDetectorAdapter(cv::Ptr<faceDetect::CascadeClassifier> detector) :
-		IDetector(),
-		Detector(detector)
+	class CascadeDetectorAdapter : public faceDetect::DetectionBasedTracker::IDetector
 	{
-		CV_Assert(detector);
+		public:
+			CascadeDetectorAdapter(cv::Ptr<faceDetect::CascadeClassifier> detector) :
+				IDetector(),
+				Detector(detector)
+			{
+				CV_Assert(detector);
+				count = 0;
+			}
 
-		count = 0;
-	}
-
-	void detect(const cv::Mat &Image, std::vector<cv::Rect> &objects, bool firstflag)
-	{
-		//Detector->detectMultiScale(Image, objects, scaleFactor, minNeighbours, 0, minObjSize, maxObjSize);
+			void detect(const cv::Mat &Image, std::vector<cv::Rect> &objects, bool firstflag)
+			{
+				//Detector->detectMultiScale(Image, objects, scaleFactor, minNeighbours, 0, minObjSize, maxObjSize);
 		
-		if (count == 0){
-			Detector->setFirstFrameFlag(true);
-			count = 1;
-		}
-		else if (count == 1){
+				if (count == 0){
+					Detector->setFirstFrameFlag(true);
+					count = 1;
+				}
+				else if (count == 1){
+					Detector->setFirstFrameFlag(firstflag);
+					count = 2;
+				}
 
-			Detector->setFirstFrameFlag(firstflag);
-			count = 2;
-		}
+				//有cuda的时候只取最大的头的位置
+				Detector->detectMultiScale(Image, objects, scaleFactor, minNeighbours,4, minObjSize, maxObjSize);
 
-		//有cuda的时候只取最大的头的位置
-		Detector->detectMultiScale(Image, objects, scaleFactor, minNeighbours,4, minObjSize, maxObjSize);
+			}
 
-	}
+			void setOnlyOneFaceFlag(bool flag)
+			{
+				//wu优化 检测到人脸就停止检测
+				Detector->setOnlyOneFaceFlag(flag);
 
-	void setOnlyOneFaceFlag(bool flag)
-	{
-		//wu优化 检测到人脸就停止检测
-		Detector->setOnlyOneFaceFlag(flag);
-
-	}
-
-
-	virtual ~CascadeDetectorAdapter()
-	{}
-
-private:
-	CascadeDetectorAdapter();
-	cv::Ptr<faceDetect::CascadeClassifier> Detector;
-
-	int count;
-};
+			}
 
 
-	int scale = 2;//1;
-	std::string lbpXml = "lbpcascade_frontalface_improved" ;
-	int minWidth = 90/scale;
-	faceDetect::DetectionBasedTracker *pDetector;
-	faceDetect::CascadeClassifier eyeCascade;
-	bool useEyeDetect = true;
+			virtual ~CascadeDetectorAdapter()
+			{}
+
+		private:
+			CascadeDetectorAdapter();
+			cv::Ptr<faceDetect::CascadeClassifier> Detector;
+			int count;
+	};
+
+	int scale = 2;												//缩放比例;
+	std::string lbpXml = "lbpcascade_frontalface_improved";		//训练集
+	int minWidth = 90 / scale;									//最小宽度
+	faceDetect::DetectionBasedTracker *pDetector;				//检测
+	faceDetect::CascadeClassifier eyeCascade;					//级联分类器
+	bool useEyeDetect = true;									//是否检查眼睛
 	int noEyesCount = 0;
 	
 int ft_init(int argc, char* argv[])
@@ -125,9 +121,6 @@ int ft_init(int argc, char* argv[])
 		return 2;
 	}
 	
-	//MainDetector->setMinNeighbours(3);
-	//MainDetector->setScaleFactor(1.1f);
-	//MainDetector->setMinObjectSize(cv::Size(24,24));
 	MainDetector->setMinObjectSize(cv::Size(minWidth,minWidth));
 	MainDetector->setOnlyOneFaceFlag(true);
 
@@ -138,19 +131,14 @@ int ft_init(int argc, char* argv[])
 		printf("Error: Cannot load %s\n", cascadeFrontalfilename.c_str());
 		return 2;
 	}
-	//TrackingDetector->setMinNeighbours(3);
-	//TrackingDetector->setScaleFactor(1.1f);
-	//TrackingDetector->setMinObjectSize(cv::Size(24, 24));
+
 	TrackingDetector->setMinObjectSize(cv::Size(minWidth,minWidth));
 	TrackingDetector->setOnlyOneFaceFlag(true);
 
 	faceDetect::DetectionBasedTracker::Parameters params;
-	//faceDetect::DetectionBasedTracker Detector(MainDetector, TrackingDetector, params);
 	params.maxTrackLifetime = 0;
-	//params.minDetectionPeriod = 1000;
 	pDetector = new faceDetect::DetectionBasedTracker(MainDetector, TrackingDetector, params);
 	
-	//if (!Detector.run())
 	if (!pDetector->run())
 	{
 		printf("Error: Detector initialization failed\n");
@@ -159,52 +147,60 @@ int ft_init(int argc, char* argv[])
 	
 	if(useEyeDetect == true){
 		eyeCascade.load("data/haarcascades/haarcascade_eye.xml");
-		//eyeCascade.load("data/haarcascades/haarcascade_eye_tree_eyeglasses.xml");
-		
 		if(eyeCascade.empty()){
 			useEyeDetect = false;
 		}
 	}
 }
 
-cv::Rect m_prefFace = {0,0,0,0};
-int ft_process(const cv::Mat& frame_,std::vector<cv::Rect>& faces_)
+cv::Rect m_prefFace = {0,0,0,0};	//当前脸位置
+
+//识别过程
+int ft_process(const cv::Mat& frame_, std::vector<cv::Rect>& faces_)
 {
 	if(frame_.empty()){
 		printf("error::ft_process frame_ is empty!\n");
 		return -1;
 	}
 	
-	if(frame_.channels() != 3&& frame_.channels() != 1){
+	if(frame_.channels() != 3 && frame_.channels() != 1){
 		printf("error::ft_process frame_ required rgb|bgr|gray!\n");
 		return -1;
 	}
 	
 	Mat GrayFrame;
+
+	//转成灰度
 	if(frame_.channels() == 3){
 		cv::cvtColor(frame_, GrayFrame, COLOR_BGR2GRAY);
-		//ImgProc::cvtColor(frame_, GrayFrame, COLOR_BGR2GRAY);
 	}else{
 		frame_.copyTo(GrayFrame);
 	}
 	
-	cv::resize(GrayFrame, GrayFrame, cv::Size(frame_.cols/scale,frame_.rows/scale));
+	//缩放图像（缩减为原来1/2）
+	cv::resize(GrayFrame, GrayFrame, cv::Size(frame_.cols / scale, frame_.rows / scale));
 	double freq = getTickFrequency();
 	int64 process_start = getTickCount();
+
+	//识别过程
 	pDetector->process(GrayFrame);
 	printf("Detector process Time = %.4fms\n", ((double)(getTickCount()-process_start))/freq * 1000.0);
+	
+	//获取识别的所有人脸
 	pDetector->getObjects(faces_);
 	for (size_t i = 0; i < faces_.size(); i++)
 	{	
 		m_prefFace = faces_[i];
-		double factorX = (lbpXml == "lbpcascade_frontalface")?0:0.05;
-		double factorY = (lbpXml == "lbpcascade_frontalface")?0:0.15;
-		faces_[i].x = faces_[i].x-faces_[i].width * factorX;
-		faces_[i].y = faces_[i].y-faces_[i].height * factorY;
+		double factorX = (lbpXml == "lbpcascade_frontalface")? 0 : 0.05;
+		double factorY = (lbpXml == "lbpcascade_frontalface")? 0 : 0.15;
+		
+		//脸部位置计算
+		faces_[i].x = faces_[i].x - faces_[i].width * factorX;
+		faces_[i].y = faces_[i].y - faces_[i].height * factorY;
 		faces_[i].width = faces_[i].width * (1 + factorX * 2);
 		faces_[i].height = faces_[i].height * (1 + factorY * 2);	
-		faces_[i].x*=scale;
-		faces_[i].y*=scale;
+		faces_[i].x *= scale;
+		faces_[i].y *= scale;
 		faces_[i].width *= scale;
 		faces_[i].height *= scale;
 					
@@ -223,7 +219,7 @@ int ft_process(const cv::Mat& frame_,std::vector<cv::Rect>& faces_)
 		
 		if(useEyeDetect == true){
 			std::vector<cv::Rect> eyes_;
-			cv::Rect roi(m_prefFace.x,m_prefFace.y,m_prefFace.width,m_prefFace.height);
+			cv::Rect roi(m_prefFace.x, m_prefFace.y, m_prefFace.width, m_prefFace.height);
 			if(roi.x<0){
 				roi.width += roi.x ;
 				roi.x = 0;

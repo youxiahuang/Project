@@ -159,6 +159,7 @@ class CV_EXPORTS DetectionBasedTracker
         virtual void getObjects(std::vector<Rect>& result) const;
         virtual void getObjects(std::vector<Object>& result) const;
 
+		//目标检测状态
         enum ObjectStatus
         {
             DETECTED_NOT_SHOWN_YET,
@@ -166,19 +167,20 @@ class CV_EXPORTS DetectionBasedTracker
             DETECTED_TEMPORARY_LOST,
             WRONG_OBJECT
         };
+
+		//目标
         struct ExtObject
         {
             int id;
             Rect location;
-            ObjectStatus status;
+            ObjectStatus status;	//目标状态
             ExtObject(int _id, Rect _location, ObjectStatus _status)
                 :id(_id), location(_location), status(_status)
             {
             }
         };
+
         virtual void getObjects(std::vector<ExtObject>& result) const;
-
-
         virtual int addObject(const Rect& location); //returns id of the new object
 
     protected:
@@ -186,6 +188,7 @@ class CV_EXPORTS DetectionBasedTracker
         Ptr<SeparateDetectionWork> separateDetectionWork;
         friend void* workcycleObjectDetectorFunction(void* p);
 
+		//内部参数
         struct InnerParameters
         {
             int numLastPositionsToTrack;
@@ -202,10 +205,10 @@ class CV_EXPORTS DetectionBasedTracker
         Parameters parameters;
         InnerParameters innerParameters;
 
+		//追踪目标
         struct TrackedObject
         {
             typedef std::vector<Rect> PositionsVector;
-
             PositionsVector lastPositions;
 
             int numDetectedFrames;
@@ -215,7 +218,7 @@ class CV_EXPORTS DetectionBasedTracker
             TrackedObject(const Rect& rect):numDetectedFrames(1), numFramesNotDetected(0)
             {
                 lastPositions.push_back(rect);
-                id=getNextId();
+                id = getNextId();
             };
 
             static int getNextId()
@@ -226,19 +229,15 @@ class CV_EXPORTS DetectionBasedTracker
         };
 
         int numTrackedSteps;
-        std::vector<TrackedObject> trackedObjects;
-
+        std::vector<TrackedObject> trackedObjects;		//追踪到的目标
         std::vector<float> weightsPositionsSmoothing;
         std::vector<float> weightsSizesSmoothing;
-
         Ptr<IDetector> cascadeForTracking;
-
-		Rect    biggestFace(std::vector<Rect> &faces) const;
+		Rect biggestFace(std::vector<Rect> &faces) const;
         void updateTrackedObjects(const std::vector<Rect>& detectedObjects);
         Rect calcTrackedObjectPositionToShow(int i) const;
         Rect calcTrackedObjectPositionToShow(int i, ObjectStatus& status) const;
         void detectInRegion(const Mat& img, const Rect& r, std::vector<Rect>& detectedObjectsInRegions);
-
 
 		//lost ,template mathch
 		Mat                 m_faceTemplate;

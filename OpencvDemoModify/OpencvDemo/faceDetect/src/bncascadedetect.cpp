@@ -738,22 +738,11 @@ bool FeatureEvaluator::setImage(InputArray _image, const std::vector<float>& _sc
         sbuf.create(sbufSize.height*nchannels, sbufSize.width, CV_32S);
         
 		rbuf.create(sbufSize.height*nchannels, sbufSize.width, CV_8U);
+		
 		//wu优化 分线程取得数据
 		//SetResizeDataInvoker invoker(*this,image, scaleData, sbuf, rbuf);
 		SetResizeDataInvoker invoker(*this, image, scaleData, rbuf);
-        
-        //int nstripes = (int)nscales/8;
         parallel_for_(Range(0, (int)nscales), invoker);
-        
-		//rbuf.create(sz0, CV_8U);
-        // for (i = 0; i < nscales; i++)
-        // {
-            // const ScaleData& s = scaleData->at(i);
-            // Mat dst(s.szi.height - 1, s.szi.width - 1, CV_8U, rbuf.ptr());
-            // //resize(image, dst, dst.size(), 1. / s.scale, 1. / s.scale, INTER_LINEAR);
-			// ImgProc::resize(image, dst, dst.size(), 1. / s.scale, 1. / s.scale, INTER_LINEAR);
-            // computeChannels((int)i, dst);
-        // }
         sbufFlag = SBUF_VALID;
     }
 
@@ -832,17 +821,6 @@ bool HaarEvaluator::read(const FileNode& node, Size _origWinSize)
     normrect = Rect(1, 1, origWinSize.width - 2, origWinSize.height - 2);
 
     localSize = lbufSize = Size(0, 0);
-    //if (ocl::haveOpenCL())
-    //{
-    //    if (ocl::Device::getDefault().isAMD() || ocl::Device::getDefault().isIntel() || ocl::Device::getDefault().isNVidia())
-    //    {
-    //        localSize = Size(8, 8);
-    //        lbufSize = Size(origWinSize.width + localSize.width,
-    //                        origWinSize.height + localSize.height);
-    //        if (lbufSize.area() > 1024)
-    //            lbufSize = Size(0, 0);
-    //    }
-    //}
 
     return true;
 }
@@ -1274,34 +1252,12 @@ public:
 		preScaleIdx = classifier->preScaleIdx;
 	}
 
-    //CascadeClassifierInvoker( CascadeClassifierImpl& _cc, int _nscales, int _nstripes,
-    //                          const FeatureEvaluator::ScaleData* _scaleData,
-    //                          const int* _stripeSizes, std::vector<Rect>& _vec,
-    //                          std::vector<int>& _levels, std::vector<double>& _weights,
-    //                          bool outputLevels, const Mat& _mask, Mutex* _mtx)
-    //{
-    //    classifier = &_cc;
-    //    nscales = _nscales;
-    //    nstripes = _nstripes;
-    //    scaleData = _scaleData;
-    //    stripeSizes = _stripeSizes;
-    //    rectangles = &_vec;
-    //    rejectLevels = outputLevels ? &_levels : 0;
-    //    levelWeights = outputLevels ? &_weights : 0;
-    //    mask = _mask;
-    //    mtx = _mtx;
-    //}
-
     void operator()(const Range& range) const
-    {        
-        //CV_INSTRUMENT_REGION()
-		//std::cout << " range.start:" << range.start<<","<< range.end<<" start" << std::endl;
-
+    {
 		//wu优化
 		if (classifier->onlyOneFace == true && classifier->findFace == true){
 			return;
 		}
-
 
         Ptr<FeatureEvaluator> evaluator = classifier->featureEvaluator->clone();
         double gypWeight = 0.;
@@ -1329,7 +1285,6 @@ public:
             Size winSize(cvRound(origWinSize.width * scalingFactor),
                          cvRound(origWinSize.height * scalingFactor));
 
-            
 			if (classifier->data.featureType == FeatureEvaluator::LBP){
 				for (int y = y0; y < y1; y += yStep)
 				{
@@ -1340,7 +1295,6 @@ public:
 					for (int x = 0; x < szw.width; x += yStep)
 #endif
 					{
-
 						//wu优化
 						if (classifier->onlyOneFace == true && classifier->findFace == true){
 							return;
@@ -1391,61 +1345,51 @@ public:
 #endif
 					}
 				}
-                   if (classifier->onlyOneFace == true ){
-                        mtx->lock();
+                if (classifier->onlyOneFace == true ){
+                    mtx->lock();
+
+                    if (classifier->findFace == true){
+                        mtx->unlock();
+                        return;
+                    }
+
+                    if (rectangles->size() > classifier->m_minNeighbors){
+
+                        std::vector<int> labels;
+                            
+                        int nclasses = partition(*rectangles, labels, SimilarRects(classifier->GROUP_EPS)); //聚类
+                        std::vector<int> rweights(nclasses, 0);
+                        for (int i = 0; i < labels.size(); i++)
+                        {
+                            rweights[labels[i]]++;
+                        }
+
+                        for (int i = 0; i < nclasses; i++){
+                            if (rweights[i] > classifier->m_minNeighbors){
+                                //已检测到人脸
+                                classifier->findFace = true;
+                                break;
+                            }
+                        }
 
                         if (classifier->findFace == true){
-                            mtx->unlock();
-                            return;
+                            int ret = groupRectangles(*rectangles, classifier->m_minNeighbors, classifier->GROUP_EPS, labels, nclasses,
+                                rejectLevels, levelWeights, classifier->onlyOneFace);
+							
+							if(ret != 1){
+								classifier->findFace = false;
+							}
+							else{
+								classifier->preScaleIdx = scaleIdx;
+								std::cout << "scaleIdx :" << scaleIdx << std::endl;
+							}
                         }
-						//std::cout << "rectangles size():" << rectangles->size() << std::endl;
-
-                        //if (rectangles->size() >= classifier->m_minNeighbors && scaleIdx >= classifier->m_minNeighbors){
-                        if (rectangles->size() > classifier->m_minNeighbors){
-
-                            std::vector<int> labels;
-                            
-                            int nclasses = partition(*rectangles, labels, SimilarRects(classifier->GROUP_EPS)); //聚类
-                            //std::cout << "nclasses :" << nclasses<< std::endl;
-                            std::vector<int> rweights(nclasses, 0);
-                            for (int i = 0; i < labels.size(); i++)
-                            {
-                                rweights[labels[i]]++;
-                            }
-
-                            for (int i = 0; i < nclasses; i++){
-								//std::cout << "rweights[" << i << "] :" << rweights[i] << std::endl;
-
-                                //if (rweights[i] >= classifier->m_minNeighbors){
-                                if (rweights[i] > classifier->m_minNeighbors){
-                                    //std::cout << "rweights[" << i << "] :" << rweights[i] << std::endl;
-                                    //已检测到人脸
-                                    classifier->findFace = true;
-
-                                    break;
-                                }
-                            }
-
-                            if (classifier->findFace == true){
-                                int ret = groupRectangles(*rectangles, classifier->m_minNeighbors, classifier->GROUP_EPS, labels, nclasses,
-                                    rejectLevels, levelWeights, classifier->onlyOneFace);
-                                //std::cout << "rectangles :" << rectangles->size() << std::endl;
-
-								if(ret != 1){
-									classifier->findFace = false;
-								}
-								else{
-									classifier->preScaleIdx = scaleIdx;
-
-									std::cout << "scaleIdx :" << scaleIdx << std::endl;
-								}
-                            }
-                        }
-                        mtx->unlock();
                     }
-                //}
+                    mtx->unlock();
+                }
             }
-            else{
+            else
+			{
                 for( int y = y0; y < y1; y += yStep )
                 {
                     for (int x = 0; x < szw.width; x += yStep)
@@ -1480,66 +1424,22 @@ public:
                 }
             }
             
-				   if (scaleIdx <= scale_0){
-					   scaleIdx = scale_0 + scaleStep;
-				   }
-				   else{
-					   scaleIdx = scale_0 - scaleStep;
-					   scaleStep++;
-				   }
+			if (scaleIdx <= scale_0){
+				scaleIdx = scale_0 + scaleStep;
+			}
+			else{
+				scaleIdx = scale_0 - scaleStep;
+				scaleStep++;
+			}
 
-				   if (scaleIdx < 0){
-					   scaleIdx = scale_0 + scaleStep;
-				   }
-				   else if (scaleIdx >= nscales){
-					   scaleIdx = scale_0 - scaleStep;
-					   scaleStep++;
-				   }
+			if (scaleIdx < 0){
+				scaleIdx = scale_0 + scaleStep;
+			}
+			else if (scaleIdx >= nscales){
+				scaleIdx = scale_0 - scaleStep;
+				scaleStep++;
+			}
         }
-
-		/*if (classifier->onlyOneFace == true){
-			mtx->lock();
-
-			if (classifier->findFace == true){
-				mtx->unlock();
-				return;
-			}
-			//if (rectangles->size() >= classifier->m_minNeighbors && scaleIdx >= classifier->m_minNeighbors){
-			if (rectangles->size() >= classifier->m_minNeighbors){
-
-				std::vector<int> labels;
-
-				int nclasses = partition(*rectangles, labels, SimilarRects(classifier->GROUP_EPS)); //聚类
-				//std::cout << "nclasses :" << nclasses << std::endl;
-				std::vector<int> rweights(nclasses, 0);
-				for (int i = 0; i < labels.size(); i++)
-				{
-					rweights[labels[i]]++;
-				}
-
-				for (int i = 0; i < nclasses; i++){
-					//if (rweights[i] >= classifier->m_minNeighbors){
-					if (rweights[i] > classifier->m_minNeighbors){
-						//std::cout << "rweights[i] :" << rweights[i] << std::endl;
-						//已检测到人脸
-						classifier->findFace = true;
-
-						break;
-					}
-				}
-
-				if (classifier->findFace == true){
-					groupRectangles(*rectangles, classifier->m_minNeighbors, classifier->GROUP_EPS, labels, nclasses,
-						rejectLevels, levelWeights, classifier->onlyOneFace);
-					//std::cout << "rectangles :" << rectangles->size() << std::endl;
-				}
-			}
-			mtx->unlock();
-		}*/
-		//std::cout << " range.start:" << range.start << " end" << std::endl;
-
-
-		
     }
 
     CascadeClassifierImpl* classifier;
@@ -1552,9 +1452,7 @@ public:
     std::vector<float> scales;
     Mat mask;
 	Mutex* mtx;
-
 	int preScaleIdx;
-
 };
 
 struct getRect { Rect operator ()(const CvAvgComp& e) const { return e.rect; } };
@@ -1732,15 +1630,11 @@ static void detectMultiScaleOldFormat( const Mat& image, Ptr<CvHaarClassifierCas
 }
 
 void CascadeClassifierImpl::detectMultiScaleNoGrouping(InputArray _image, std::vector<Rect>& candidates,
-	std::vector<int>& rejectLevels, std::vector<double>& levelWeights,
-	double scaleFactor, Size minObjectSize, Size maxObjectSize,
-	bool outputRejectLevels)
+														std::vector<int>& rejectLevels, std::vector<double>& levelWeights,
+														double scaleFactor, Size minObjectSize, Size maxObjectSize,
+														bool outputRejectLevels)
 {
-	
 	if (isFirstFrame == true){//wu优化 图像大小不变时，缩放比例也不变，内存不需要重新开拓，只需重新赋值
-		
-	//CV_INSTRUMENT_REGION()
-
 	Size imgsz = _image.size();
 	Size originalWindowSize = getOriginalWindowSize();
 
@@ -1754,8 +1648,9 @@ void CascadeClassifierImpl::detectMultiScaleNoGrouping(InputArray _image, std::v
 	//std::vector<float> all_scales, scales;
 	m_scales.clear();
 	std::vector<float>  all_scales;
+	
+	//预留足够的空间
 	all_scales.reserve(1024);
-	//scales.reserve(1024);
 	m_scales.reserve(1024);
 
 	// First calculate all possible scales for the given image and model, then remove undesired scales
@@ -1781,10 +1676,8 @@ void CascadeClassifierImpl::detectMultiScaleNoGrouping(InputArray _image, std::v
 
 	// If minSize and maxSize parameter are equal and scales is not filled yet, then the scale was not available in the precalculated scales
 	// In that case we want to return the most fitting scale (closest corresponding scale using L2 distance)
-	//if (scales.empty() && !all_scales.empty()){
 	if (m_scales.empty() && !all_scales.empty()){
 		std::vector<double> distances;
-		// Calculate distances
 		for (size_t v = 0; v < all_scales.size(); v++){
 			Size windowSize(cvRound(originalWindowSize.width*all_scales[v]), cvRound(originalWindowSize.height*all_scales[v]));
 			double d = (minObjectSize.width - windowSize.width) * (minObjectSize.width - windowSize.width)
@@ -1801,7 +1694,6 @@ void CascadeClassifierImpl::detectMultiScaleNoGrouping(InputArray _image, std::v
 		//scales.push_back(all_scales[iMin]);
 		m_scales.push_back(all_scales[iMin]);
 	}
-
 }
     candidates.clear();
     rejectLevels.clear();
@@ -1886,8 +1778,6 @@ void CascadeClassifierImpl::detectMultiScale( InputArray _image, std::vector<Rec
                                           int flags, Size minObjectSize, Size maxObjectSize,
                                           bool outputRejectLevels )
 {
-    //CV_INSTRUMENT_REGION()
-
     CV_Assert( scaleFactor > 1 && _image.depth() == CV_8U );
 
     if( empty() )
@@ -1924,21 +1814,17 @@ void CascadeClassifierImpl::detectMultiScale( InputArray _image, std::vector<Rec
                                           double scaleFactor, int minNeighbors,
                                           int flags, Size minObjectSize, Size maxObjectSize)
 {
-    //CV_INSTRUMENT_REGION()
-
     std::vector<int> fakeLevels;
     std::vector<double> fakeWeights;
     detectMultiScale( _image, objects, fakeLevels, fakeWeights, scaleFactor,
         minNeighbors, flags, minObjectSize, maxObjectSize );
 }
 
-void CascadeClassifierImpl::detectMultiScale( InputArray _image, std::vector<Rect>& objects,
+void CascadeClassifierImpl::detectMultiScale(InputArray _image, std::vector<Rect>& objects,
                                           std::vector<int>& numDetections, double scaleFactor,
                                           int minNeighbors, int flags, Size minObjectSize,
                                           Size maxObjectSize )
 {
-    //CV_INSTRUMENT_REGION()
-
     Mat image = _image.getMat();
     CV_Assert( scaleFactor > 1 && image.depth() == CV_8U );
 
@@ -2099,10 +1985,8 @@ bool CascadeClassifierImpl::Data::read(const FileNode &root)
             }
         }
     }
-
     return true;
 }
-
 
 bool CascadeClassifierImpl::read_(const FileNode& root)
 {
@@ -2126,13 +2010,10 @@ bool CascadeClassifierImpl::read_(const FileNode& root)
     return featureEvaluator->read(fn, data.origWinSize);
 }
 
-//}
-
 template<> void DefaultDeleter<CvHaarClassifierCascade>::operator ()(CvHaarClassifierCascade* obj) const
 { cvReleaseHaarClassifierCascade(&obj); }
 
-//namespace faceDetect
-//{
+
 BaseCascadeClassifier::~BaseCascadeClassifier()
 {
 }
@@ -2216,8 +2097,6 @@ void CascadeClassifier::detectMultiScale( InputArray image,
                       Size minSize,
                       Size maxSize )
 {
-    //CV_INSTRUMENT_REGION()
-
     CV_Assert(!empty());
     cc->detectMultiScale(image, objects, scaleFactor, minNeighbors, flags, minSize, maxSize);
     clipObjects(image.size(), objects, 0, 0);
@@ -2230,8 +2109,6 @@ void CascadeClassifier::detectMultiScale( InputArray image,
                       int minNeighbors, int flags,
                       Size minSize, Size maxSize )
 {
-    //CV_INSTRUMENT_REGION()
-
     CV_Assert(!empty());
     cc->detectMultiScale(image, objects, numDetections,
                          scaleFactor, minNeighbors, flags, minSize, maxSize);
@@ -2247,8 +2124,6 @@ void CascadeClassifier::detectMultiScale( InputArray image,
                       Size minSize, Size maxSize,
                       bool outputRejectLevels )
 {
-    //CV_INSTRUMENT_REGION()
-
     CV_Assert(!empty());
     cc->detectMultiScale(image, objects, rejectLevels, levelWeights,
                          scaleFactor, minNeighbors, flags,

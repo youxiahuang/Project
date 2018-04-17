@@ -99,16 +99,16 @@
 #define LOGE(...)
 #endif //DEBUGLOGS
 
-
 using namespace faceDetect;
-
 const double faceDetect::DetectionBasedTracker::TICK_FREQUENCY = cv::getTickFrequency();
 
+//返回矩形中心点位置
 static inline cv::Point2f centerRect(const cv::Rect& r)
 {
     return cv::Point2f(r.x+((float)r.width)/2, r.y+((float)r.height)/2);
 }
 
+//矩形在中心不变情况下缩放scale
 static inline cv::Rect scale_rect(const cv::Rect& r, float scale)
 {
     cv::Point2f m=centerRect(r);
@@ -171,7 +171,6 @@ class faceDetect::DetectionBasedTracker::SeparateDetectionWork
 #endif
         }
     protected:
-
         DetectionBasedTracker& detectionBasedTracker;
         cv::Ptr<DetectionBasedTracker::IDetector> cascadeInThread;
 #ifdef USE_STD_THREADS
@@ -197,16 +196,14 @@ class faceDetect::DetectionBasedTracker::SeparateDetectionWork
             STATE_THREAD_STOPPING
         };
         volatile StateSeparatedThread stateThread;
-
         cv::Mat imageSeparateDetecting;
-
         void workcycleObjectDetector();
         friend void* workcycleObjectDetectorFunction(void* p);
-
         long long  timeWhenDetectingThreadStartedWork;
         faceDetect::DetectionBasedTracker::Parameters parameters;
 };
 
+//初始化构造函数SeparateDetectionWork
 faceDetect::DetectionBasedTracker::SeparateDetectionWork::SeparateDetectionWork(DetectionBasedTracker& _detectionBasedTracker, cv::Ptr<DetectionBasedTracker::IDetector> _detector,
                                                                         const faceDetect::DetectionBasedTracker::Parameters& params)
     :detectionBasedTracker(_detectionBasedTracker),
@@ -218,7 +215,6 @@ faceDetect::DetectionBasedTracker::SeparateDetectionWork::SeparateDetectionWork(
     parameters(params)
 {
     CV_Assert(_detector);
-
     cascadeInThread = _detector;
 #ifndef USE_STD_THREADS
     second_workthread = 0;
@@ -298,6 +294,7 @@ bool faceDetect::DetectionBasedTracker::SeparateDetectionWork::run()
         LOGE0("\n %s: ERROR: UNKNOWN Exception caught\n\n", CV_Func);                       \
     }
 
+//检测线程函数
 void* faceDetect::workcycleObjectDetectorFunction(void* p)
 {
     CATCH_ALL_AND_LOG({ ((faceDetect::DetectionBasedTracker::SeparateDetectionWork*)p)->workcycleObjectDetector(); });
@@ -395,30 +392,14 @@ void faceDetect::DetectionBasedTracker::SeparateDetectionWork::workcycleObjectDe
             break;
         }
 
-
         if (imageSeparateDetecting.empty()) {
             LOGD("DetectionBasedTracker::SeparateDetectionWork::workcycleObjectDetector() --- imageSeparateDetecting is empty, continue");
             continue;
         }
         LOGD("DetectionBasedTracker::SeparateDetectionWork::workcycleObjectDetector() --- start handling imageSeparateDetecting, img.size=%dx%d, img.data=0x%p",
                 imageSeparateDetecting.size().width, imageSeparateDetecting.size().height, (void*)imageSeparateDetecting.data);
-
-		//printf("detect size( %d ,%d)\n", imageSeparateDetecting.size().width, imageSeparateDetecting.size().height);
-
         int64 t1_detect=getTickCount();
-
-        //cascadeInThread->detect(imageSeparateDetecting, objects);
-		cascadeInThread->detect(imageSeparateDetecting, objects,false);
-
-        /*cascadeInThread.detectMultiScale( imageSeparateDetecting, objects,
-                detectionBasedTracker.parameters.scaleFactor, detectionBasedTracker.parameters.minNeighbors, 0
-                |CV_HAAR_SCALE_IMAGE
-                ,
-                min_objectSize,
-                max_objectSize
-                );
-        */
-
+		cascadeInThread->detect(imageSeparateDetecting, objects, false);
         LOGD("DetectionBasedTracker::SeparateDetectionWork::workcycleObjectDetector() --- end handling imageSeparateDetecting");
 
         if (!isWorking()) {
@@ -526,11 +507,11 @@ void faceDetect::DetectionBasedTracker::SeparateDetectionWork::resetTracking()
 
 }
 
+//单独检测线程函数
 bool faceDetect::DetectionBasedTracker::SeparateDetectionWork::communicateWithDetectingThread(const Mat& imageGray, std::vector<Rect>& rectsWhereRegions)
 {
 	static double freq = TICK_FREQUENCY;
-
-    bool shouldCommunicateWithDetectingThread = (stateThread==STATE_THREAD_WORKING_SLEEPING);
+    bool shouldCommunicateWithDetectingThread = (stateThread == STATE_THREAD_WORKING_SLEEPING);
     LOGD("DetectionBasedTracker::SeparateDetectionWork::communicateWithDetectingThread: shouldCommunicateWithDetectingThread=%d", (shouldCommunicateWithDetectingThread?1:0));
 
     if (!shouldCommunicateWithDetectingThread) {
@@ -619,9 +600,9 @@ faceDetect::DetectionBasedTracker::DetectionBasedTracker(cv::Ptr<IDetector> main
     numTrackedSteps(0),
     cascadeForTracking(trackingDetector)
 {
-    CV_Assert( (params.maxTrackLifetime >= 0)
-//            && mainDetector
-            && trackingDetector );
+    CV_Assert((params.maxTrackLifetime >= 0)
+			  //&& mainDetector
+			  && trackingDetector );
 
     if (mainDetector) {
         Ptr<SeparateDetectionWork> tmp(new SeparateDetectionWork(*this, mainDetector, params));
@@ -651,7 +632,6 @@ faceDetect::DetectionBasedTracker::~DetectionBasedTracker()
 void faceDetect::DetectionBasedTracker::process(const Mat& imageGray)
 {
     CV_Assert(imageGray.type()==CV_8UC1);
-
     if ( separateDetectionWork && !separateDetectionWork->isWorking() ) {
         separateDetectionWork->run();
     }
@@ -700,15 +680,16 @@ void faceDetect::DetectionBasedTracker::process(const Mat& imageGray)
     LOGI("DetectionBasedTracker::process: tracked objects num==%d", (int)trackedObjects.size());
 
     std::vector<Rect> detectedObjectsInRegions;
+
 #ifdef D_TRACK_PRO
 	if (m_trackedFace.width * m_trackedFace.height == 0 ){
 #endif //D_TRACK_PRO
-    LOGD("DetectionBasedTracker::process: rectsWhereRegions.size()=%d", (int)rectsWhereRegions.size());
 
+    LOGD("DetectionBasedTracker::process: rectsWhereRegions.size()=%d", (int)rectsWhereRegions.size());
 	printf("rectsWhereRegions: %d\n", rectsWhereRegions.size());
+
 	for (size_t i = 0; i < rectsWhereRegions.size(); i++) {
         Rect r = rectsWhereRegions[i];
-
         detectInRegion(imageDetect, r, detectedObjectsInRegions);
     }
     LOGD("DetectionBasedTracker::process: detectedObjectsInRegions.size()=%d", (int)detectedObjectsInRegions.size());
@@ -929,10 +910,9 @@ cv::Mat faceDetect::DetectionBasedTracker::getFaceTemplate(const cv::Mat &frame,
 cv::Rect faceDetect::DetectionBasedTracker::biggestFace(std::vector<cv::Rect> &faces) const
 {
 	assert(!faces.empty());
-
 	cv::Rect *biggest = &faces[0];
 	for (auto &face : faces) {
-		if (face.area() < biggest->area())
+		if (face.area() > biggest->area())		//huang:之前返回最小脸，现在修改为最大值
 			biggest = &face;
 	}
 	return *biggest;
