@@ -112,7 +112,7 @@ int ft_init(int argc, char* argv[])
 	//分类器路径
 	std::string cascadeFrontalfilename = "data/lbpcascades/"+lbpXml + ".xml";
 	
-	//实例化分类器
+	//实例化分类器MainDetector（为什么要实例化两个MainDetector,TrackingDetector？）
 	cv::Ptr<faceDetect::CascadeClassifier> cascade = makePtr<faceDetect::CascadeClassifier>(cascadeFrontalfilename);
 	cv::Ptr<faceDetect::DetectionBasedTracker::IDetector> MainDetector = makePtr<CascadeDetectorAdapter>(cascade);
 	if (cascade->empty())
@@ -124,6 +124,7 @@ int ft_init(int argc, char* argv[])
 	MainDetector->setMinObjectSize(cv::Size(minWidth,minWidth));
 	MainDetector->setOnlyOneFaceFlag(true);
 
+	//实例化分类器TrackingDetector
 	cascade = makePtr<faceDetect::CascadeClassifier>(cascadeFrontalfilename);
 	cv::Ptr<faceDetect::DetectionBasedTracker::IDetector> TrackingDetector = makePtr<CascadeDetectorAdapter>(cascade);
 	if (cascade->empty())
@@ -137,6 +138,8 @@ int ft_init(int argc, char* argv[])
 
 	faceDetect::DetectionBasedTracker::Parameters params;
 	params.maxTrackLifetime = 0;
+
+	//实例化检测器（MainDetector + TrackingDetector + params）
 	pDetector = new faceDetect::DetectionBasedTracker(MainDetector, TrackingDetector, params);
 	
 	if (!pDetector->run())

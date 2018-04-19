@@ -593,6 +593,7 @@ faceDetect::DetectionBasedTracker::InnerParameters::InnerParameters()
 
 }
 
+//DetectionBasedTracker¹¹Ôìº¯Êý
 faceDetect::DetectionBasedTracker::DetectionBasedTracker(cv::Ptr<IDetector> mainDetector, cv::Ptr<IDetector> trackingDetector, const Parameters& params)
     :separateDetectionWork(),
     parameters(params),
