@@ -168,7 +168,7 @@ class faceDetect::DetectionBasedTracker::SeparateDetectionWork
 #else
             pthread_cond_signal(&(objectDetectorThreadStartStop));
             pthread_mutex_unlock(&mutex);
-#endif
+#endif 
         }
     protected:
         DetectionBasedTracker& detectionBasedTracker;
